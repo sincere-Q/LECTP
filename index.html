@@ -90,24 +90,23 @@
                     <h2 class="title is-3">Abstract</h2>
                     <div class="content has-text-justified">
                         <p>
-                            V2X-based multi-vehicle cooperative motion planning enables intelligent connected vehicles
-                            within a region to achieve optimal passage, thereby improving traffic efficiency and safety
-                            at various complex urban intersections. To ensure reliable coordination, high-quality yet
-                            lightweight trajectory representation and efficient optimization are essential. This paper
-                            presents a lightweight and efficient cooperative planning framework for multi-vehicle
-                            systems at unsignalized intersections, jointly considering trajectory quality and traffic
-                            efficiency. To resolve spatiotemporal conflicts, we propose a conflict resolution strategy
-                            based on experience reuse, which accelerates resolution by reusing intermediate results and
-                            focusing on newly emerged conflicts. To address the reliance of high-quality trajectories on
-                            dense temporal discretization, we formulate a parameterized minimum-time joint optimization
-                            model that reduces the optimization dimensionality while ensuring minimum traversal time. We
-                            conduct simulation studies in a 200m × 200m six-lane bidirectional intersection. Compared to
-                            the most efficient baseline, the proposed method achieves a significant improvement in
-                            computational efficiency, with a speedup ranging from 60.04% to 91.37%, while
-                            simultaneously reducing the average communication data load by 94.76%. Finally, we validate
-                            the proposed method in a 7m × 4m indoor intersection experiment involving six vehicles. The
-                            results show that the framework performs well in allocating spatiotemporal resources and
-                            ensuring smooth multi-vehicle coordination.
+                            Multi-vehicle cooperative motion planning based on V2X communication can effectively improve the 
+                            traffic efficiency and safety of Connected and Automated Vehicles (CAVs) within a given region, 
+                            thereby enhancing the operational performance of complex urban intersections. To address the challenges 
+                            of high computational complexity and the difficulty in simultaneously guaranteeing real-time performance 
+                            and solution quality in multi-vehicle cooperative trajectory planning at urban unsignalized intersections, 
+                            this paper proposes a lightweight and efficient multi-vehicle cooperative trajectory planning method. 
+                            Within the Conflict-Based Search (CBS) framework, a time-window-based conflict resolution and experience 
+                            reuse mechanism is introduced to achieve near-linear growth of the conflict tree, thereby striking a balance 
+                            between real-time performance and scalability. Meanwhile, a parameterized trajectory representation based on 
+                            differential flatness is embedded into the CBS conflict resolution process, enabling efficient trajectory 
+                            refinement in continuous spatiotemporal domains while strictly satisfying lane constraints and dynamic feasibility, 
+                            and meanwhile reducing the system-level communication load. Simulation results in a bidirectional six-lane 
+                            intersection scenario within a 200m × 200m area demonstrate that the proposed method outperforms baseline 
+                            approaches in key metrics such as trajectory solving efficiency, system scalability, and communication overhead 
+                            under dense traffic conditions. Furthermore, a real-world UAV--UGV collaborative unsignalized intersection 
+                            experimental platform is established to validate the real-time performance, safety, and engineering feasibility 
+                            of the proposed system in physical environments.
                         </p>
                     </div>
                 </div>
@@ -115,33 +114,6 @@
         </div>
     </section>
     <!-- End paper abstract -->
-
-    <!-- <section class="section">
-        <div class="container">
-            <div class="box" style="text-align: left;">
-                <h2 class="title is-4">Abstract</h2>
-                <p>
-                    V2X-based multi-vehicle cooperative motion planning enables intelligent connected vehicles within a
-                    region to achieve optimal passage, thereby improving traffic efficiency and safety at various
-                    complex urban intersections. To ensure reliable coordination, high-quality yet lightweight
-                    trajectory representation and efficient optimization are essential. This paper presents a
-                    lightweight and efficient cooperative planning framework for multi-vehicle systems at unsignalized
-                    intersections, jointly considering trajectory quality and traffic efficiency. To resolve
-                    spatiotemporal conflicts, we propose a conflict resolution strategy based on experience reuse, which
-                    accelerates resolution by reusing intermediate results and focusing on newly emerged conflicts. To
-                    address the reliance of high-quality trajectories on dense temporal discretization, we formulate a
-                    parameterized minimum-time joint optimization model that reduces the optimization dimensionality
-                    while ensuring minimum traversal time. We conduct simulation studies in a 200m × 200m six-lane
-                    bidirectional intersection. Compared to the most efficient baseline, the proposed method achieves a
-                    significant improvement in computational efficiency, with a speedup ranging from 60.04% to 91.37%,
-                    while simultaneously reducing the average communication data load by 94.76%. Finally, we validate
-                    the proposed method in a 7m × 4m indoor intersection experiment involving six vehicles. The results
-                    show that the framework performs well in allocating spatiotemporal resources and ensuring smooth
-                    multi-vehicle coordination.
-                </p>
-            </div>
-        </div>
-    </section> -->
 
     <section class="section">
         <div class="container">
@@ -151,12 +123,18 @@
                     <img src="media\images\04.png" alt="Cooperative Motion Planning System Architecture">
                 </figure>
                 <p class="mt-3">
-                    <strong>Fig. 4:</strong> Overview of our complete intersection cooperative motion planning system,
-                    illustrating the proposed scheme for conflict detection and resolution. The right part of the figure
-                    shows the passage trajectory generation module, which integrates all the requirements discussed in
-                    Section Ⅲ. It demonstrates a three-stage process—conflict search,
-                    experience reuse, and trajectory optimization—to generate spatiotemporally optimal
-                    multi-objective trajectories for execution by CAVs.
+                    <strong>Fig. 4:</strong> Overview of the proposed cooperative motion planning framework for unsignalized 
+                    intersections. CAVs upload their states, targets, and constraints to the roadside infrastructure via V2X 
+                    communication for cooperative planning, and the optimized executable trajectories are transmitted back to 
+                    the vehicles for real-time motion execution. The core passage trajectory generation module consists of three 
+                    stages: conflict search, experience reuse, and trajectory optimization. First, CBS initializes and expands 
+                    the constraint tree to detect spatiotemporal conflicts; then, local trajectory optimization intervals are 
+                    extracted based on the conflict time window, and parameterized spatiotemporal trajectory optimization is 
+                    performed under unified kinematic and environmental constraints to generate dynamically feasible and 
+                    collision-free local cooperative trajectories. Meanwhile, the experience reuse module incorporates 
+                    historical feasible trajectories to accelerate the local replanning process. Finally, through the 
+                    continuous expansion and convergence of CBS nodes, a globally feasible multi-vehicle cooperative trajectory 
+                    solution is obtained.
                 </p>
             </div>
         </div>
@@ -164,13 +142,10 @@
 
 
 
-
-
-
     <section class="section">
         <div class="container">
             <div class="has-text-centered">
-                <h2 class="title is-3">Results</h2>
+                <h2 class="title is-3">Experimental results and analysis</h2>
                 <figure class="image" style="max-width: 80%; margin: 0 auto;">
                     <img src="media\images\biao.png" alt="Experimental Results Comparison">
                 </figure>
@@ -290,17 +265,17 @@
                 </p>
 
                 <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
-                    As shown in Fig. a, dense spatiotemporal conflicts occur among CAV-2,
+                    As shown in Fig.7a, dense spatiotemporal conflicts occur among CAV-2,
                     CAV-3, and CAV-4 within the unsignalized intersection area. Traditional approaches typically perform
                     global replanning over the entire trajectory to resolve such conflict-intensive regions, which
                     incurs high computational overhead and often disrupts the consistency of the original trajectory. In
                     contrast, the proposed method enables substantial trajectory inheritance for CAV-2, CAV-3, and CAV-4
                     before and after entering the intersection, with only localized trajectory reconstruction applied in
-                    the core conflict zone. As illustrated in Fig. b, CAV-2 and CAV-3 exploit the strong deformation
+                    the core conflict zone. As illustrated in Fig.7b, CAV-2 and CAV-3 exploit the strong deformation
                     capability of the differentially flat vehicle model to generate spatial trajectories in continuous
                     space. By temporarily utilizing the adjacent right lane, they execute high-speed evasive maneuvers
                     around CAV-0 and CAV-4, achieving passage speeds of 14.914 m/s and 14.149 m/s, respectively.
-                    Subsequently, both vehicles return to their designated task lanes, as depicted in Fig. c. This
+                    Subsequently, both vehicles return to their designated task lanes, as depicted in Fig.7c. This
                     strategy maintains trajectory structural stability and prevents the propagation of new conflicts
                     caused by large-scale trajectory modifications. By applying localized conflict segment replanning,
                     the method significantly reduces the solution space explored during CBS node expansion.
@@ -318,13 +293,143 @@
     <section class="section">
         <div class="container">
             <div class="has-text-centered">
-                <h2 class="title is-4">Architecture of the indoor UAV-UGV cooperative motion planning experimental
-                    system based on ROS</h2>
+                <h2 class="title is-3">Quantitative Analysis of Experimental Results</h2>
+                
+                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
+                    For each vehicle scale, we randomly generate the initial position, velocity, acceleration, and target lane for 
+                    each vehicle within the parameter range specified in Table 2. To ensure fairness between different algorithms, 
+                    all methods are compared on the same set of randomized scenarios within the same scale. In order to reduce the 
+                    impact of randomness, 20 test cases are independently generated for each scale using the same random seed, and 
+                    the success rate and average computation time are recorded. The experiments are considered failed if no feasible 
+                    solution is found within 500s. 
+                </p>
+                
+                <figure class="image" style="max-width: 80%; margin: 0 auto;">
+                    <img src="media/images/t9.png" alt="Success Rate of Different Methods Across Scales">
+                </figure>
+                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
+                    Figure <strong>9</strong> shows the success rate variation of the four methods across different scales, while 
+                    Figure <strong>10</strong> displays the trend of the average computation time as the number of vehicles increases.
+                </p>
+                
+                <figure class="image" style="max-width: 80%; margin: 0 auto;">
+                    <img src="media/images/t10.png" alt="Average Computation Time Across Scales">
+                </figure>
+                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
+                    Based on the experimental results, the proposed LECTP method demonstrates a clear advantage in both success rate and 
+                    computation time. As the vehicle scale increases from 2 to 40, the success rate of LECTP remains consistently high. 
+                    It maintains a 100% success rate for up to 26 vehicles, and even in the most challenging scenario with 40 vehicles, 
+                    the success rate is still around 75%. This indicates that LECTP can stably coordinate large-scale vehicles through 
+                    intersections, significantly outperforming other comparison methods.
+                </p>
+
+                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
+                    Regarding computation time, LECTP exhibits a smooth increase in average computation time as the number of vehicles grows, 
+                    while methods like PSB and OPC-CBS encounter significant time bottlenecks at larger scales, with solving times rapidly increasing. 
+                    Specifically, PSB reaches 36.73 seconds at around 10 vehicles, and for more than 18 vehicles, the computation time exceeds 100 seconds. 
+                    Coupled OCP also shows significant computational bottlenecks at relatively small scales. In contrast, LECTP maintains effective control 
+                    over computation time throughout the test range, demonstrating good scalability.
+                </p>
+
+                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
+                    In summary, the LECTP method exhibits high success rates and low computation times in large-scale vehicle coordination planning, 
+                    particularly maintaining stable performance even as the number of vehicles increases. This makes LECTP significantly superior to 
+                    other comparison methods.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="has-text-centered">
+                <h2 class="title is-3">Computation Time Analysis of LECTP Method</h2>
+                <figure class="image" style="max-width: 80%; margin: 0 auto;">
+                    <img src="media/images/t11.png" alt="Computation Time Growth with Vehicle Scale">
+                </figure>
+                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
+                    Figure <strong>11</strong> shows the computation time statistics for the LECTP method as the vehicle scale increases by 2 vehicles at a time. The yellow values represent the median computation time. 
+                    For the 14-vehicle scale, the median computation time is only in the range of a few hundred milliseconds. The maximum computation time at 14 vehicles is 1.691 seconds, and the minimum computation time is 0.483 seconds. 
+                    In the 16–40 vehicle scenarios, the computation time increases linearly as the vehicle scale grows.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="has-text-centered">
+                <h2 class="title is-3">Tree Depth and Node Count Analysis of LECTP Method</h2>
+                <figure class="image" style="max-width: 80%; margin: 0 auto;">
+                    <img src="media/images/t12.png" alt="Tree Depth and Node Count Growth with Vehicle Scale">
+                </figure>
+                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
+                    Figure <strong>12</strong> illustrates how the tree depth (Depth) and node count (Node Count) of the LECTP algorithm change as the vehicle scale increases. 
+                    The figure shows that both tree depth and node count increase approximately linearly with the vehicle scale. This linear growth trend in tree depth and node count corresponds to the computation time growth trends observed in Figures <strong>10</strong> and <strong>11</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="has-text-centered">
+                <h2 class="title is-3">Node-to-Depth Ratio (NDR) Analysis of LECTP Method</h2>
+                <figure class="image" style="max-width: 80%; margin: 0 auto;">
+                    <img src="media/images/t13.png" alt="NDR Curve of LECTP">
+                </figure>
+                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
+                    To further explain the advantages of LECTP in computation time and conflict resolution from the perspective of constraint tree structure, 
+                    we introduce a new metric — Node-to-Depth Ratio (NDR). NDR is defined as the ratio of the total number of expanded constraint tree (CT) nodes 
+                    to the maximum depth of the tree, serving as a structural indicator to measure the expansion pattern of the constraint tree. 
+                    Figure <strong>13</strong> presents the NDR curve of LECTP. 
+                    In the range of 6–40 vehicles, the NDR remains around an average of 2.51. The figure shows that at the 40-vehicle scale, 
+                    the median depth of the tree is 124 layers, with 345 expanded nodes. Notably, the NDR does not exhibit exponential growth with increasing scale. 
+                    Compared to the node explosion in the traditional CBS framework, LECTP demonstrates stronger scalability and conflict localization ability at the structural level.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <section class="section">
+        <div class="container">
+            <div class="has-text-centered">
+                <h2 class="title is-3">Ablation Experiments</h2>
+                
+                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
+                    To systematically evaluate the influence of key modules and parameter configurations in the proposed 
+                    LECTP method, we conduct two categories of ablation experiments: (1) sensitivity analysis of the window-time 
+                    scaling factor &lambda; and the safety margin &delta;; and (2) assessment of the performance impact when 
+                    enabling or disabling the experience-reuse mechanism. The experiments are performed under three representative 
+                    traffic densities (12, 24, and 36 vehicles) to ensure the robustness of the conclusions across different scales. 
+                    All scenarios are generated using the same randomized environment construction procedure as in the extended 
+                    experiments discussed previously.
+                </p>
+
+
+                <figure class="image" style="max-width: 80%; margin: 0 auto;">
+                    <img src="media/images/biao4_5.png" alt="Ablation Experiments">
+                </figure>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="section">
+        <div class="container">
+            <div class="has-text-centered">
+                <h2 class="title is-3">Real-World Test</h2>
                 <figure class="image" style="max-width: 80%; margin: 0 auto;">
                     <img src="media\images\real-world.png" alt="Architecture">
                 </figure>
                 <p class="mt-3">
-                    <strong>Fig. 9:</strong> The setup mimics a bidirectional four-lane intersection with six AgileX
+                    <strong>Fig. 14:</strong> The setup mimics a bidirectional four-lane intersection with six AgileX
                     LIMO Pro robotic platforms representing intelligent connected vehicles. Among them, four vehicles
                     are assigned left-turn tasks and two are assigned straight-driving tasks. Each LIMO communicates in
                     real-time with a simulated roadside computation unit carried by a quadrotor UAV. The LIMO robots
@@ -346,7 +451,7 @@
                     <img src="media\images\shinei_6_car_jieguo_00.png" alt="Visualizations of Predicted Trajectories">
                 </figure>
                 <p class="mt-3">
-                    <strong>Fig. 10:</strong> (a) Snapshot of the entire experiment process.
+                    <strong>Fig. 15:</strong> (a) Snapshot of the entire experiment process.
                     (b) Historical trajectories and current vehicle states corresponding to (a).
                     (c) Speed-time curves of all vehicles.
                     (d) Temporal variation of the maximum and minimum inter-vehicle distances.
