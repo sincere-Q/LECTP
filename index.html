@@ -90,23 +90,22 @@
                     <h2 class="title is-3">Abstract</h2>
                     <div class="content has-text-justified">
                         <p>
-                            Multi-vehicle cooperative motion planning based on V2X communication can effectively improve the 
-                            traffic efficiency and safety of Connected and Automated Vehicles (CAVs) within a given region, 
-                            thereby enhancing the operational performance of complex urban intersections. To address the challenges 
-                            of high computational complexity and the difficulty in simultaneously guaranteeing real-time performance 
-                            and solution quality in multi-vehicle cooperative trajectory planning at urban unsignalized intersections, 
-                            this paper proposes a lightweight and efficient multi-vehicle cooperative trajectory planning method. 
-                            Within the Conflict-Based Search (CBS) framework, a time-window-based conflict resolution and experience 
-                            reuse mechanism is introduced to achieve near-linear growth of the conflict tree, thereby striking a balance 
-                            between real-time performance and scalability. Meanwhile, a parameterized trajectory representation based on 
-                            differential flatness is embedded into the CBS conflict resolution process, enabling efficient trajectory 
-                            refinement in continuous spatiotemporal domains while strictly satisfying lane constraints and dynamic feasibility, 
-                            and meanwhile reducing the system-level communication load. Simulation results in a bidirectional six-lane 
-                            intersection scenario within a 200m × 200m area demonstrate that the proposed method outperforms baseline 
-                            approaches in key metrics such as trajectory solving efficiency, system scalability, and communication overhead 
-                            under dense traffic conditions. Furthermore, a real-world UAV--UGV collaborative unsignalized intersection 
-                            experimental platform is established to validate the real-time performance, safety, and engineering feasibility 
-                            of the proposed system in physical environments.
+                            V2X-based multi-vehicle cooperative motion planning can effectively improve the traffic efficiency and safety of 
+                            Connected and Automated Vehicles (CAVs) within a given region, thereby enhancing the operational performance of 
+                            complex urban intersections. To address the challenges of high computational complexity and the difficulty in 
+                            simultaneously guaranteeing real-time performance, scalability, and solution quality in multi-vehicle cooperative 
+                            trajectory planning at urban unsignalized intersections, this paper proposes a lightweight and efficient multi-vehicle 
+                            cooperative trajectory planning method. Within the Conflict-Based Search (CBS) framework, a time-window-based conflict 
+                            resolution and experience reuse mechanism is introduced, which empirically exhibits approximately linear conflict-tree 
+                            growth. Meanwhile, a differential-flatness-based parameterized trajectory representation is embedded into the low-level 
+                            trajectory optimization process, enabling low-dimensional trajectory optimization in continuous space while reducing the 
+                            system-level communication load. In a 200m × 200m bidirectional six-lane unsignalized intersection scenario, compared 
+                            with three representative baseline methods, the proposed method reduces computation time by 60.04%–91.37% and decreases 
+                            the average communication data volume by 94.76%. It also maintains a 100% planning success rate for up to 26 vehicles. 
+                            Further continuous-flow experiments under intersection and roundabout topologies validate the long-term operational 
+                            stability of the proposed method under persistent traffic inflow and outflow. Finally, a real-world UAV–UGV collaborative 
+                            unsignalized-intersection experimental platform is established to validate the real-time performance, safety, and 
+                            engineering feasibility of the proposed system in physical environments.
                         </p>
                     </div>
                 </div>
@@ -331,53 +330,119 @@
         <div class="container">
             <div class="has-text-centered">
                 <h2 class="title is-3">Quantitative Analysis of Experimental Results</h2>
-                
-                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
-                    For each vehicle scale, we randomly generate the initial position, velocity, acceleration, and target lane for 
-                    each vehicle within the parameter range specified in Table 2. To ensure fairness between different algorithms, 
-                    all methods are compared on the same set of randomized scenarios within the same scale. In order to reduce the 
-                    impact of randomness, 20 test cases are independently generated for each scale using the same random seed, and 
-                    the success rate and average computation time are recorded. The experiments are considered failed if no feasible 
-                    solution is found within 500s. 
-                </p>
-                
-                <figure class="image" style="max-width: 80%; margin: 0 auto;">
-                    <img src="media/images/t9.png" alt="Success Rate of Different Methods Across Scales">
-                </figure>
-                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
-                    Figure <strong>9</strong> shows the success rate variation of the four methods across different scales, while 
-                    Figure <strong>10</strong> displays the trend of the average computation time as the number of vehicles increases.
-                </p>
-                
-                <figure class="image" style="max-width: 80%; margin: 0 auto;">
-                    <img src="media/images/t10.png" alt="Average Computation Time Across Scales">
-                </figure>
-                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
-                    Based on the experimental results, the proposed LECTP method demonstrates a clear advantage in both success rate and 
-                    computation time. As the vehicle scale increases from 2 to 40, the success rate of LECTP remains consistently high. 
-                    It maintains a 100% success rate for up to 26 vehicles, and even in the most challenging scenario with 40 vehicles, 
-                    the success rate is still around 75%. This indicates that LECTP can stably coordinate large-scale vehicles through 
-                    intersections, significantly outperforming other comparison methods.
+
+                <p class="mt-3 has-text-justified" style="font-size: 1.25rem;">
+                    For each vehicle scale, the initial position, velocity, acceleration, and target lane of each vehicle are randomly 
+                    generated within the parameter range specified in Table 2. To ensure fairness, all methods are evaluated on the same 
+                    randomized scenarios. For each scale, 20 independent test cases are generated using the same random seed, and the 
+                    success rate and average computation time are recorded. A test case is regarded as failed if no feasible solution is 
+                    found within 500 s.
                 </p>
 
-                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
-                    Regarding computation time, LECTP exhibits a smooth increase in average computation time as the number of vehicles grows, 
-                    while methods like PSB and OPC-CBS encounter significant time bottlenecks at larger scales, with solving times rapidly increasing. 
-                    Specifically, PSB reaches 36.73 seconds at around 10 vehicles, and for more than 18 vehicles, the computation time exceeds 100 seconds. 
-                    Coupled OCP also shows significant computational bottlenecks at relatively small scales. In contrast, LECTP maintains effective control 
-                    over computation time throughout the test range, demonstrating good scalability.
-                </p>
+                <div class="columns is-centered is-vcentered mt-4">
+                    <div class="column is-6">
+                        <figure class="image" style="margin: 0 auto;">
+                            <img src="media/images/t9.png" alt="Success Rate of Different Methods Across Scales">
+                        </figure>
+                        <p class="mt-2 has-text-centered" style="font-size: 1.05rem;">
+                            <strong>Fig. 9:</strong> Success rate across different vehicle scales.
+                        </p>
+                    </div>
 
-                <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
-                    In summary, the LECTP method exhibits high success rates and low computation times in large-scale vehicle coordination planning, 
-                    particularly maintaining stable performance even as the number of vehicles increases. This makes LECTP significantly superior to 
-                    other comparison methods.
+                    <div class="column is-6">
+                        <figure class="image" style="margin: 0 auto;">
+                            <img src="media/images/t10.png" alt="Average Computation Time Across Scales">
+                        </figure>
+                        <p class="mt-2 has-text-centered" style="font-size: 1.05rem;">
+                            <strong>Fig. 10:</strong> Average computation time across different vehicle scales.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="mt-3 has-text-justified" style="font-size: 1.25rem;">
+                    As shown in Figs. <strong>9</strong> and <strong>10</strong>, LECTP maintains a consistently high success rate as 
+                    the number of vehicles increases from 2 to 40. It achieves a 100% success rate for up to 26 vehicles and still 
+                    maintains about 75% success rate in the 40-vehicle case. In terms of computation time, LECTP grows smoothly with 
+                    the vehicle scale, whereas PSB, Coupled OCP, and OPC-CBS suffer from obvious computational bottlenecks at larger 
+                    scales. These results indicate that LECTP provides better scalability and real-time performance for large-scale 
+                    cooperative trajectory planning.
                 </p>
             </div>
         </div>
     </section>
 
     <section class="section">
+        <div class="container is-max-widescreen">
+            <div class="has-text-centered">
+                <h2 class="title is-3">Scalability and Constraint-Tree Structure Analysis</h2>
+
+                <!-- Row 1: Fig. 11 and Fig. 12 -->
+                <div class="columns is-centered is-variable is-5 mt-4">
+                    <div class="column is-6">
+                        <div class="box" style="box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-radius: 12px;">
+                            <div style="height: 260px; display: flex; align-items: center; justify-content: center;">
+                                <img src="media/images/t11.png"
+                                    alt="Computation Time Growth with Vehicle Scale"
+                                    style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                            </div>
+                            <p class="mt-2 has-text-centered" style="font-size: 1.05rem;">
+                                <strong>Fig. 11:</strong> Computation time statistics of LECTP.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="column is-6">
+                        <div class="box" style="box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-radius: 12px;">
+                            <div style="height: 260px; display: flex; align-items: center; justify-content: center;">
+                                <img src="media/images/t12.png"
+                                    alt="Tree Depth and Node Count Growth with Vehicle Scale"
+                                    style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                            </div>
+                            <p class="mt-2 has-text-centered" style="font-size: 1.05rem;">
+                                <strong>Fig. 12:</strong> Constraint-tree depth and node count.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Fig. 13 centered -->
+                <div class="columns is-centered mt-3">
+                    <div class="column is-7">
+                        <div class="box" style="box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-radius: 12px;">
+                            <div style="height: 300px; display: flex; align-items: center; justify-content: center;">
+                                <img src="media/images/t13.png"
+                                    alt="NDR Curve of LECTP"
+                                    style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                            </div>
+                            <p class="mt-2 has-text-centered" style="font-size: 1.05rem;">
+                                <strong>Fig. 13:</strong> Node-to-Depth Ratio of LECTP.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary text -->
+                <div class="content mt-4"
+                    style="max-width: 1050px; margin: 0 auto; text-align: left; font-size: 1.22rem; line-height: 1.75;">
+                    <p>
+                        Figures <strong>11</strong>–<strong>13</strong> analyze the scalability of LECTP from the perspectives of
+                        computation time and constraint-tree structure. As the number of vehicles increases, the computation time grows
+                        smoothly, while both the tree depth and node count exhibit approximately linear growth. To further characterize
+                        the expansion pattern of the constraint tree, we introduce the Node-to-Depth Ratio (NDR), defined as the ratio
+                        between the total number of expanded CT nodes and the maximum tree depth. The NDR remains around an average of
+                        2.51 for 6–40 vehicles and does not show exponential growth. At the 40-vehicle scale, the median tree depth
+                        reaches 124 layers with 345 expanded nodes, indicating that LECTP effectively avoids severe node explosion and
+                        maintains good scalability through localized conflict resolution and trajectory reuse.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- <section class="section">
         <div class="container">
             <div class="has-text-centered">
                 <h2 class="title is-3">Computation Time Analysis of LECTP Method</h2>
@@ -426,7 +491,7 @@
                 </p>
             </div>
         </div>
-    </section>
+    </section> -->
 
 
 
