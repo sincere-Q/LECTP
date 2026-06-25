@@ -73,9 +73,9 @@
                     <source src="media/videos/01_01.mp4" type="video/mp4">
                 </video>
                 <h2 class="subtitle has-text-centered">
-                    A cooperative motion planning simulation at an unsignalized intersection was conducted in a 7×4 m
-                    indoor environment, where UAVs were used to emulate roadside computing units, and UGVs served as
-                    intelligent connected vehicle models.
+                    A cooperative motion-planning experiment was conducted in a 7 × 4 m indoor environment 
+                    representing an unsignalized intersection, where a UAV-mounted computing unit 
+                    emulated the roadside planner and UGVs served as scaled intelligent connected vehicle platforms.
                 </h2>
             </div>
         </div>
@@ -90,22 +90,25 @@
                     <h2 class="title is-3">Abstract</h2>
                     <div class="content has-text-justified">
                         <p>
-                            V2X-based multi-vehicle cooperative motion planning can effectively improve the traffic efficiency and safety of 
-                            Connected and Automated Vehicles (CAVs) within a given region, thereby enhancing the operational performance of 
-                            complex urban intersections. To address the challenges of high computational complexity and the difficulty in 
-                            simultaneously guaranteeing real-time performance, scalability, and solution quality in multi-vehicle cooperative 
-                            trajectory planning at urban unsignalized intersections, this paper proposes a lightweight and efficient multi-vehicle 
-                            cooperative trajectory planning method. Within the Conflict-Based Search (CBS) framework, a time-window-based conflict 
-                            resolution and experience reuse mechanism is introduced, which empirically exhibits approximately linear conflict-tree 
-                            growth. Meanwhile, a differential-flatness-based parameterized trajectory representation is embedded into the low-level 
-                            trajectory optimization process, enabling low-dimensional trajectory optimization in continuous space while reducing the 
-                            system-level communication load. In a 200m × 200m bidirectional six-lane unsignalized intersection scenario, compared 
-                            with three representative baseline methods, the proposed method reduces computation time by 60.04%–91.37% and decreases 
-                            the average communication data volume by 94.76%. It also maintains a 100% planning success rate for up to 26 vehicles. 
-                            Further continuous-flow experiments under intersection and roundabout topologies validate the long-term operational 
-                            stability of the proposed method under persistent traffic inflow and outflow. Finally, a real-world UAV–UGV collaborative 
-                            unsignalized-intersection experimental platform is established to validate the real-time performance, safety, and 
-                            engineering feasibility of the proposed system in physical environments.
+                            Cooperative trajectory planning for connected and automated vehicles at unsignalized 
+                            intersections requires simultaneous consideration of conflict resolution, continuous 
+                            trajectory feasibility, real-time computation, and communication efficiency. 
+                            This paper proposes a lightweight and efficient cooperative trajectory planning framework 
+                            for multi-CAV coordination at structured unsignalized intersections. The proposed method 
+                            integrates time-window-based conflict resolution and trajectory experience reuse into a 
+                            CBS-style coordination framework, so that previously verified safe trajectory segments 
+                            can be preserved and only conflict-related local trajectory segments are refined. Meanwhile, 
+                            a differential-flatness-based parameterized trajectory representation is embedded into the 
+                            low-level trajectory optimization module to support continuous-space trajectory optimization 
+                            and compact trajectory communication. In the tested structured intersection scenarios, the 
+                            proposed method empirically exhibits an approximately linear growth trend of the constraint tree. 
+                            In a 200 m × 200 m bidirectional six-lane intersection, the proposed method reduces computation 
+                            time by 60.04%–91.37% and decreases the average communication data volume by 94.76% 
+                            compared with representative baselines, while maintaining a 100% planning success rate with up 
+                            to 26 vehicles. Further continuous-flow simulations and indoor UAV–UGV experiments indicate 
+                            stable rolling operation under persistent traffic flow and real-time executability on a 
+                            physical platform. In addition, the planning-level degradation mechanism under short-term 
+                            V2X communication failures is discussed.
                         </p>
                     </div>
                 </div>
@@ -122,18 +125,18 @@
                     <img src="media\images\04.png" alt="Cooperative Motion Planning System Architecture">
                 </figure>
                 <p class="mt-3">
-                    <strong>Fig. 4:</strong> Overview of the proposed cooperative motion planning framework for unsignalized 
-                    intersections. CAVs upload their states, targets, and constraints to the roadside infrastructure via V2X 
-                    communication for cooperative planning, and the optimized executable trajectories are transmitted back to 
-                    the vehicles for real-time motion execution. The core passage trajectory generation module consists of three 
-                    stages: conflict search, experience reuse, and trajectory optimization. First, CBS initializes and expands 
-                    the constraint tree to detect spatiotemporal conflicts; then, local trajectory optimization intervals are 
-                    extracted based on the conflict time window, and parameterized spatiotemporal trajectory optimization is 
-                    performed under unified kinematic and environmental constraints to generate dynamically feasible and 
-                    collision-free local cooperative trajectories. Meanwhile, the experience reuse module incorporates 
-                    historical feasible trajectories to accelerate the local replanning process. Finally, through the 
-                    continuous expansion and convergence of CBS nodes, a globally feasible multi-vehicle cooperative trajectory 
-                    solution is obtained.
+                    <strong>Fig. 4:</strong> Overview of the proposed LECTP framework for cooperative trajectory
+                     planning at structured unsignalized intersections. Cooperative CAVs transmit their states,
+                      target information, and vehicle parameters to the roadside planner through V2X 
+                      communication. The planner performs three key steps: 1) Conflict Search, which 
+                      detects pairwise spatiotemporal conflicts and constructs time-window constraints 
+                      in a CBS-style conflict tree; 2) Trajectory Experience Reuse, which preserves 
+                      previously verified safe segments and locally repairs only the conflict-related segment; 
+                      and 3) Trajectory Optimization, which refines the local trajectory using 
+                      differential-flatness-based parameterization under kinematic, collision-avoidance, 
+                      lane, and smoothness-related constraints. The conflict-free trajectory solution 
+                      selected from the constraint tree is then returned to the vehicles for execution 
+                      in a compact parameterized form.
                 </p>
             </div>
         </div>
@@ -149,7 +152,7 @@
                     <img src="media\images\biao.png" alt="Experimental Results Comparison">
                 </figure>
                 <p class="mt-3 has-text-justified" style="font-size: 1.3rem;">
-                    We conducted a comparative analysis of the proposed algorithm against three state-of-the-art
+                    We conducted a comparative analysis of the proposed algorithm against three representative baseline 
                     methods—PSB, Coupled OCP, and OPC-CBS—along two key dimensions: <strong>coordination
                         efficiency</strong> and <strong>trajectory quality</strong>, under various task types and
                     planning scales. The evaluation metrics encompass the following aspects: <br><br>
@@ -425,14 +428,17 @@
                 <div class="content mt-4"
                     style="max-width: 1050px; margin: 0 auto; text-align: left; font-size: 1.22rem; line-height: 1.75;">
                     <p>
-                        Figures <strong>11</strong>–<strong>13</strong> analyze the scalability of LECTP from the perspectives of
-                        computation time and constraint-tree structure. As the number of vehicles increases, the computation time grows
-                        smoothly, while both the tree depth and node count exhibit approximately linear growth. To further characterize
-                        the expansion pattern of the constraint tree, we introduce the Node-to-Depth Ratio (NDR), defined as the ratio
-                        between the total number of expanded CT nodes and the maximum tree depth. The NDR remains around an average of
-                        2.51 for 6–40 vehicles and does not show exponential growth. At the 40-vehicle scale, the median tree depth
-                        reaches 124 layers with 345 expanded nodes, indicating that LECTP effectively avoids severe node explosion and
-                        maintains good scalability through localized conflict resolution and trajectory reuse.
+                        Figures <strong>11</strong>–<strong>13</strong> analyze the empirical scalability of LECTP from 
+                        the perspectives of computation time and constraint-tree structure. In the tested structured 
+                        intersection scenarios, the computation time increases smoothly with the vehicle scale, 
+                        while both the tree depth and node count show an approximately linear growth trend. 
+                        To further characterize the expansion pattern of the constraint tree, we introduce 
+                        the Node-to-Depth Ratio (NDR), defined as the ratio between the total number of 
+                        expanded CT nodes and the maximum tree depth. The NDR remains around an average of 
+                        2.51 for 6–40 vehicles and does not exhibit exponential growth in these tested cases. 
+                        At the 40-vehicle scale, the median tree depth reaches 124 layers with 345 expanded nodes, 
+                        suggesting that localized conflict resolution and trajectory reuse help suppress excessive 
+                        CT expansion in structured intersection scenarios.
                     </p>
                 </div>
             </div>
@@ -534,7 +540,7 @@
                     CAVs, limits the jointly optimized batch size to 12, and preserves previously verified safe trajectories as
                     collision-avoidance constraints. The results show stable active-CAV evolution, low NDR values, controllable
                     replanning frequency and communication load, and collision/dynamic-constraint violation rates below 0.033%,
-                    indicating that LECTP maintains good efficiency and safety under continuous inflow--outflow traffic.
+                    indicating that LECTP can maintain stable planning performance and low violation rates under the tested continuous inflow–outflow traffic conditions.
                 </p>
 
                 <div class="table-container" style="max-width: 95%; margin: 1.5rem auto;">
